@@ -4,6 +4,8 @@
 #include "GameTime.h"
 #include "DebouncedSwitch.h"
 #include "EarLightAnimation.h"
+#include "FireworkAnimation.h"
+
 
 #define NOSE_BUTTON_PIN 24
 
@@ -24,6 +26,7 @@ GameTime game_time;
 DebouncedSwitch nose_button(NOSE_BUTTON_PIN);  // monitor a switch connected between input D4 and GND
 
 EarLightAnimation ear_light_animation(&leds, &game_time);
+FireworkAnimation firework_animation(&leds, &game_time);
 
 uint16_t hue = 0;
 uint8_t render = 0;
@@ -50,11 +53,11 @@ void loop() {
   nose_button.update();
 
   clear(&leds);
-  ear_light_animation.update();
-  ear_light_animation.renderer();
+  firework_animation.update();
+  firework_animation.renderer();
 
   if (nose_button.isDown()) {
-    ear_light_animation.spawn_nose_boop_fire();
+    firework_animation.spawn_rocket();
   }
   leds.show();
 }
